@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:\Users\User\Desktop\CLARUSWAY\SQL\chinook.db" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="3528"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">-- Sorular:
+-- Her albümde kaç parça var? Çözümünüz, Albüm kimliğini ve en yüksekten en düşüğe sıralanmış parça sayısını içermelidir.
+-- ını bulun. Çözümünüz parça adını ve albüm başlığını içermelidir.
+-- çanın minimum süresini bulun. Çözümünüz albüm kimliğini, albüm adını ve parçanın süresini en yüksekten en düşüğe sıralanmış şekilde içermelidir.
+-- i bulun. Çözümünüz albüm kimliğini, albüm başlığını ve en yüksekten en düşüğe sıralanmış toplam süresini içermelidir.
+-- toplam süresi 70 dakikadan fazla olan albümleri bulun. Çözümünüz albüm başlığını ve toplam süreyi içermelidir.
+
+
+--1.sorunun cevabı
+SELECT count(name), AlbumId
+FROM tracks
+GROUP BY AlbumId
+ORDER BY count(name) DESC ;
+
+-- 2. sorunun cevabı
+SELECT tracks.name, albums.Title
+FROM albums
+INNER JOIN tracks ON tracks.AlbumId = albums.AlbumId ;
+
+-- 3. sorunun cevabı
+SELECT albums.AlbumId, albums.Title, MIN(Milliseconds)
+FROM albums
+INNER JOIN tracks ON tracks.AlbumId = albums.AlbumId
+GROUP BY albums.AlbumId
+ORDER BY 3 DESC ;
+
+-- 4. sorunun cevabı
+SELECT albums.AlbumId, albums.Title, SUM(Milliseconds)
+FROM albums
+INNER JOIN tracks ON tracks.AlbumId = albums.AlbumId
+GROUP BY albums.AlbumId
+ORDER BY 3 DESC ;
+
+-- 5. sorunun cevabı
+SELECT albums.Title, SUM(Milliseconds)
+FROM albums
+INNER JOIN tracks ON tracks.AlbumId = albums.AlbumId
+GROUP BY albums.Title
+HAVING SUM(Milliseconds) &gt; 70*60*1000
+ORDER BY 2 DESC ;
+
+
+
+
+
+
+
+
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
