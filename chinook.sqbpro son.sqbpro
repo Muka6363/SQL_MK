@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:\Users\User\Desktop\CLARUSWAY\SQL\chinook.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="3528"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:maingenres"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="albums" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="70"/><column index="2" value="300"/><column index="3" value="68"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="artists" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="68"/><column index="2" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="customers" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="92"/><column index="2" value="80"/><column index="3" value="83"/><column index="4" value="294"/><column index="5" value="264"/><column index="6" value="132"/><column index="7" value="53"/><column index="8" value="96"/><column index="9" value="89"/><column index="10" value="128"/><column index="11" value="122"/><column index="12" value="183"/><column index="13" value="107"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="genres" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="68"/><column index="2" value="112"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="invoices" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="1" mode="0"/></sort><column_widths><column index="1" value="77"/><column index="2" value="92"/><column index="3" value="129"/><column index="4" value="264"/><column index="5" value="132"/><column index="6" value="89"/><column index="7" value="105"/><column index="8" value="125"/><column index="9" value="49"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="media_types" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="99"/><column index="2" value="164"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tracks" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="65"/><column index="2" value="300"/><column index="3" value="70"/><column index="4" value="99"/><column index="5" value="68"/><column index="6" value="300"/><column index="7" value="93"/><column index="8" value="63"/><column index="9" value="74"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">-- SELECT Name, Composer FROM tracks;
+-- SELECT * FROM tracks;
+-- SELECT distinct Composer FROM tracks;
+-- SELECT distinct AlbumId, MediaTypeId FROM tracks;
+SELECT distinct AlbumId, MediaTypeId FROM tracks;
+-- 'Jorge Ben' PARÇA ADI VE PARÇA KIMLIĞINI GERİ DÖNEN BİR SORU YAZIN
+SELECT Name, TrackId 
+FROM tracks
+WHERE Composer = 'Jorge Ben';
+-- TOPLAM TUTARIN 25 DOLARDAN DAHA FAZLA OLAN FATURALARIN TÜM BİLGİLERİNİ DÖNDÜREN BİR SORU YAZIN...
+SELECT *
+FROM invoices
+WHERE total &gt; 25 ;
+-- TOPLAM TUTARI 15 ABD Dolarından AZ OLAN FATURALARIN(invoices) TÜM BİLGİLERİNİ DÖNDÜREN BİR SORU YAZIN.
+-- SADECE 5 SATIR GERİ DÖN
+SELECT *
+FROM invoices
+WHERE total &lt; 15
+LIMIT 5 ;
+--TOPLAM TUTARI 10 ABD Dolarından fazla olan FATURALARIN TÜM BİLGİLERİNİ DÖNDÜREN BİR SORU YAZIN. 
+--SONRA TOPLAM MİKTARLARI AZALAN(DESC) DÜZENLE SIRALAYIN, SON OLARAK İLK 2 SATIRI GÖRÜNTÜLEYİN
+SELECT *
+FROM invoices
+WHERE total &gt; 10
+ORDER BY total DESC
+LIMIT 2;
+-- ÜLKEsi KANADA OLMAYAN FATURALARIN TÜM BİLGİLERİNİ DÖNDÜREN BİR SORU YAZIN. 
+-- SONRA TOPLAM MİKTARLARI ARTAN DÜZENLE SIRALAYIN, SON OLARAK İLK 10 SATIRI GÖRÜNTÜLEYİN
+SELECT *
+FROM invoices
+WHERE NOT BillingCountry = &quot;Canada&quot; --WHERE BillingCountry != &quot;Canada&quot; -- 
+ORDER BY total ASC
+LIMIT 10;
+--HER FATURA İÇİN FATURA NO, MÜŞTERİ NO VE TOPLAM DOLAR MİKTARI SORGULAYAN BİR SORGU YAZIN. 
+--SONRA BUNLARI ÖNCE MÜŞTERİ NO GÖRE ARTAN, SONRA TOPLAM DOLAR TUTARINDAN AZARA GÖRE SIRALAYINIZ.
+SELECT InvoiceId, CustomerId, total
+FROM invoices
+ORDER BY CustomerId ASC, total DESC;
+--'B' İLE BAŞLAYAN VE 'S' İLE BİTEN TÜM PARÇA ADLARINI DÖNDÜREN BİR SORU YAZIN
+SELECT name
+FROM tracks
+WHERE name LIKE &quot;B%S&quot;; --WHERE name LIKE &quot;B%&quot; AND LIKE &quot;%S&quot;
+--2008-2011 ARASINDAKİ FATURA TARİHLERİ ARASINDAKİ EN YENİ TARİHİ DÖNEN BİR SORU YAZIN
+SELECT InvoiceDate
+FROM invoices
+WHERE InvoiceDate BETWEEN &quot;2008-01-01&quot; AND &quot;2011-12-31&quot;
+ORDER BY InvoiceDate DESC
+LIMIT 1;
+--NORVEÇ VE BELÇİKA'DAN SİPARİŞ OLAN MÜŞTERİLERİNİN ADI VE SOYADINI VEREN BİR SORU YAZIN
+SELECT FirstName, LastName
+FROM customers
+WHERE  Country IN (&quot;Belgium&quot;, &quot;Norway&quot;);
+--'ZAPPA' PARÇA ADLARINI DÖNDÜREN BİR SORU YAZIN
+SELECT Composer, name
+FROM tracks
+WHERE  Composer LIKE &quot;%ZAPPA&quot; ;
+--DİJİTAL MÜZİK MAĞAZASINDA KAÇ PARÇA VE FATURA BULUNUR, AYRI AYRI GÖRÜNTÜLEYİN
+SELECT count(*)
+FROM tracks ;
+SELECT count(*)
+FROM invoices ;
+--DİJİTAL MÜZİK MAĞAZASINDA KAÇ BESTECİ VAR.
+SELECT count(DISTINCT Composer)
+FROM tracks ;
+--HER ALBÜMDE KAÇ PARÇA VARDIR, GÖRÜNTÜLENEN ALBÜMİD VE PARÇA SAYISI EN YÜKSEKTEN DÜŞÜĞE AYRILMIŞTIR
+SELECT AlbumId,
+COUNT(*) AS number_of_tracks
+FROM tracks
+GROUP BY AlbumId
+ORDER BY number_of_tracks DESC;
+--MİNİMUM VE MAKSİMUM SÜRE SAHİBİ OLARAK PARÇA ADI DÖNEN BİR SORU YAZIN, AYRI GÖRÜNTÜLEYİN
+SELECT name, MIN(Milliseconds) 
+FROM tracks;
+SELECT name, MAX(Milliseconds) 
+FROM tracks;
+--parcaların ortalama suresını bulunuz...
+SELECT AVG(Milliseconds)
+FROM tracks;
+--SÜRESİ ORTALAMA SÜREDEN DAHA KÜÇÜK OLAN PARÇALARI DÖNDÜREN BİR SORU YAZIN. subquery (alt sorgu)
+SELECT *
+FROM tracks
+WHERE Milliseconds &lt; (SELECT AVG(Milliseconds)
+					  FROM tracks);
+--HER BİR BESTECİ PARÇASININ TOPLAM SAYISINI DÖNDÜREN BİR SORU YAZIN.
+SELECT Composer, count(composer)
+FROM tracks
+GROUP by composer; 
+---------SELECT Composer, COUNT(*)
+--FROM tracks
+--GROUP BY Composer;
+--------- SELECT Composer, COUNT(Composer)
+-- FROM tracks
+-- WHERE Composer IS NOT NULL
+-- GROUP BY Composer;
+--HER PARÇA TÜRÜNÜ DÖNDÜREN BİR SORU YAZIN.
+SELECT tracks.Name, genres.Name
+FROM tracks 
+JOIN genres ON tracks.GenreId = genres.GenreId;
+-- SELECT t.Name, g.Name
+-- FROM tracks t
+-- JOIN genres g ON t.GenreId = g.GenreId;
+
+
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
