@@ -1,5 +1,5 @@
 --23 Temmuz 2022, Cumartesi
---DB Browser tanıtımı
+--DB Browser tanıtımı ile başla
 
 -- DATABASE --
 -- Database (Veritabanı): Verileri anlamlı saklayan programdır.
